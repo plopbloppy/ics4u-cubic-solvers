@@ -32,17 +32,16 @@ form?.addEventListener("submit", (event) => {
         const x = (-q/2 + Math.sqrt((q/2) ** 2 + (p/3) ** 3)) ** 2/3 - b/(3 * a);
 
         (document.getElementById("result") as HTMLInputElement).value = `x1=${u}, x2=${v}, x3=${x}`;
-
     } else {
        // see if ternary can be used here
        if (p == q && p == 0) {
-        // use Cardano's Method once to get triple root
+        const x = (-q/2 + Math.sqrt((q/2) ** 2 + (p/3) ** 3)) ** 2/3 - b/(3 * a);
+        (document.getElementById("result") as HTMLInputElement).value = `x1=${x}, x2=${x}, x3=${x}`;
 
         } else {
-        // use Cardano's Method once to get double root
-        // use something else to get the single root (on doc)
-
-        
+        const x = (p/2) ** 1/3 - b/(3 * a);
+        const x3 = -2 * x;
+        (document.getElementById("result") as HTMLInputElement).value = `x1=${x}, x2=${x}, x3=${x3}`;
         }
     }
 })
