@@ -35,6 +35,8 @@ if (ctx) {
 }
 
 function drawFunction(a: number, b: number, c: number, d: number, x1: any, x2: any, x3: any) {
+    const roots = [x1, x2, x3];
+
     if (ctx) {
         ctx.translate(centerX, centerY);
         ctx.beginPath();
@@ -47,8 +49,6 @@ function drawFunction(a: number, b: number, c: number, d: number, x1: any, x2: a
             ctx.lineWidth = 2;
             ctx.stroke();
         }
-
-        const roots = [x1, x2, x3];
 
         ctx.beginPath();
 
@@ -87,21 +87,24 @@ form?.addEventListener("submit", (event) => {
     } else if (discriminant > 0) {
         const U = -q / 2 + Math.sqrt((q / 2) ** 2 + (p / 3) ** 3);
         const V = -q / 2 - Math.sqrt((q / 2) ** 2 + (p / 3) ** 3);
-        x1 = U ** 1 / 3;
-        x2 = V ** 1 / 3;
-        x3 = (-q / 2 + Math.sqrt((q / 2) ** 2 + (p / 3) ** 3)) ** 2 / 3 - b / (3 * a);
+        x1 = U ** (1 / 3);
+        x2 = V ** (1 / 3);
+        x3 = x1 + x2 - b / (3 * a);
 
-        (document.getElementById("result") as HTMLInputElement).value = `x1=${x1}, x2=${x2}, x3=${x3}`;
+        (document.getElementById("result") as HTMLInputElement).value = `x1= Complex Number, x2= Complex Number, x3=${x3}`;
     } else {
         if (p == q && p == 0) {
             const x1 = (-q / 2 + Math.sqrt((q / 2) ** 2 + (p / 3) ** 3)) ** 2 / 3 - b / (3 * a);
-            (document.getElementById("result") as HTMLInputElement).value = `x1=${x1}, x2=${x1}, x3=${x1}`;
+            const x2 = (-q / 2 + Math.sqrt((q / 2) ** 2 + (p / 3) ** 3)) ** 2 / 3 - b / (3 * a);
+            const x3 = (-q / 2 + Math.sqrt((q / 2) ** 2 + (p / 3) ** 3)) ** 2 / 3 - b / (3 * a);
+            (document.getElementById("result") as HTMLInputElement).value = `x1=${x1}, x2=${x2}, x3=${x3}`;
 
         } else {
             const x1 = (p / 2) ** 1 / 3 - b / (3 * a);
+            const x2 = (p / 2) ** 1 / 3 - b / (3 * a);
             const x3 = -2 * x1;
 
-            (document.getElementById("result") as HTMLInputElement).value = `x1=${x1}, x2=${x1}, x3=${x3}`;
+            (document.getElementById("result") as HTMLInputElement).value = `x1=${x1}, x2=${x2}, x3=${x3}`;
         }
     }
     drawFunction(a, b, c, d, x1, x2, x3);
