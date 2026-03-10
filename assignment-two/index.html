@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>assignment-two</title>
     <link rel="stylesheet" href="style.css">
+    <script type="module" src="script.js"></script>
 </head>
 
 <body>
@@ -24,6 +25,37 @@
             <input type="text" id="result" name="result" />
             <input type="submit" value="Calculate" />
         </form>
+
+        <table>
+            <tr>
+                <td>p</td>
+                <td>{{p}}</td>
+            </tr>
+            <tr>
+                <td>Discriminant</td>
+                <td>{{discriminant}}</td>
+            </tr>
+            <tr>
+                <td>Value</td>
+                <td>x</td>
+                <td>y</td>
+            </tr>
+            <tr>
+                <td>Root 1</td>
+                <td>{{x1}}</td>
+                <td>0</td>
+            </tr>
+            <tr>
+                <td>Root 2</td>
+                <td>{{x2}}</td>
+                <td>0</td>
+            </tr>
+            <tr>
+                <td>Root 3</td>
+                <td>{{x3}}</td>
+                <td>0</td>
+            </tr>
+        </table>
     </div>
     <canvas id="graph" width="600" height="600"></canvas>
     <script src="script.ts"></script>

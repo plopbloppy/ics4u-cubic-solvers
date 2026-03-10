@@ -3,63 +3,62 @@ const canvas = document.getElementById("graph") as HTMLCanvasElement;
 const ctx = canvas.getContext("2d");
 const centerX = canvas.width / 2 + 5;
 const centerY = canvas.height / 2 + 5;
+const gridSize = 20;
 
 //roots
 let x1: any;
 let x2: any;
 let x3: any;
 
+//grid
 if (ctx) {
-    //grid
     ctx.beginPath();
-    for (let i = 5; i <= canvas.width; i += 30) {
-
-        //vertical lines
+    for (let i = 5; i <= canvas.width; i += gridSize) {
         ctx.moveTo(i, 5);
         ctx.lineTo(i, canvas.height);
-
-        //horizontal lines
         ctx.moveTo(5, i);
         ctx.lineTo(canvas.width, i);
-
-        ctx.strokeStyle = "#AAAAAA";
+        ctx.strokeStyle = "#cde8f5";
         ctx.stroke();
     }
 
-    ctx.lineWidth = 2;
+    //x- and y- axis
     ctx.beginPath();
-
-    //x-axis
     ctx.moveTo(5, centerY);
     ctx.lineTo(canvas.width, centerY);
-
-    //y-axis
     ctx.moveTo(centerX, 5);
     ctx.lineTo(centerX, canvas.height);
 
-    ctx.strokeStyle = "#443d80";
+    ctx.strokeStyle = "#3c8dbc";
+    ctx.lineWidth = 2;
     ctx.stroke();
 }
 
-//transforms points to match scale of grid
-//when i = 5, (i-5)/30 - 10 (each major tick on grid)
-function translatePoint(point: any) {
-    return point * 30;
-}
-
-function drawFunction(x1: any, x2: any, x3: any, yInt: any) {
+function drawFunction(a: number, b: number, c: number, d: number, x1: any, x2: any, x3: any) {
     if (ctx) {
         ctx.translate(centerX, centerY);
         ctx.beginPath();
 
-        let newX1 = translatePoint(x1);
-        let newX2 = translatePoint(x2);
-        let newX3 = translatePoint(x3);
+        for (let x = -15; x <= 15; x += 0.01) {
+            const y = -(a * x ** 3 + b * x ** 2 + c * x + d);
+            ctx.lineTo(x * gridSize, y * gridSize);
+            // x === -centerX ? ctx.moveTo(x * gridSize, y * gridSize) : ctx.lineTo(x * gridSize, y * gridSize);
+            ctx.strokeStyle = "#f37f73";
+            ctx.lineWidth = 2;
+            ctx.stroke();
+        }
 
-        //arc parameters: centerX... 
-        ctx.arc(newX1, 0, Math.abs(newX2 - newX1), 0, Math.PI);
-        // ctx.arc(x2, 0, 50, 0, Math.PI);
-        ctx.stroke();
+        const roots = [x1, x2, x3];
+
+        ctx.beginPath();
+
+        for (let i = 0; i < roots.length; i++) {
+            ctx.moveTo(roots[i] * gridSize, 0);
+            ctx.arc(roots[i] * gridSize, 0, 3, 0, 2 * Math.PI);
+            ctx.fillStyle = "#ffd24f";
+            ctx.fill();
+            ctx.stroke();
+        }
     }
 }
 
@@ -105,5 +104,5 @@ form?.addEventListener("submit", (event) => {
             (document.getElementById("result") as HTMLInputElement).value = `x1=${x1}, x2=${x1}, x3=${x3}`;
         }
     }
-    drawFunction(x1, x2, x3, d);
+    drawFunction(a, b, c, d, x1, x2, x3);
 })
