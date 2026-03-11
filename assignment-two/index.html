@@ -14,25 +14,29 @@
         <h1>Cubic Solver</h1>
         <form id="cubic-form">
             <p id="equation"></p>
-            <label for="a">a value:</label>
-            <input type="number" id="a" name="a" required />
-            <label for="b">b value:</label>
-            <input type="number" id="b" name="b" required />
-            <label for="c">c value:</label>
-            <input type="number" id="c" name="c" required />
-            <label for="d">d value:</label>
-            <input type="number" id="d" name="d" required />
-            <input type="submit" value="Calculate" />
+            <div><label for="a">a value:</label>
+                <input type="number" id="a" name="a" required />
+            </div>
+            <div><label for="b">b value:</label>
+                <input type="number" id="b" name="b" required />
+            </div>
+            <div><label for="c">c value:</label>
+                <input type="number" id="c" name="c" required />
+            </div>
+            <div><label for="d">d value:</label>
+                <input type="number" id="d" name="d" required />
+            </div>
+            <div><input type="submit" value="Calculate" /></div>
         </form>
 
         <table>
             <tr>
                 <td>p</td>
-                <td id="p"></td>
+                <td id="p" colspan="2"></td>
             </tr>
             <tr>
                 <td>Discriminant</td>
-                <td id="discriminant"></td>
+                <td id="discriminant" colspan="2"></td>
             </tr>
             <tr>
                 <td>Value</td>
