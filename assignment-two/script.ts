@@ -42,7 +42,7 @@ function drawFunction(a: number, b: number, c: number, d: number, realRoots: any
             ctx.stroke();
         }
 
-        //draws a dot around each real root
+        //dot around each real root
         ctx.beginPath();
         ctx.fillStyle = "#ffd24f";
 
@@ -93,12 +93,20 @@ form?.addEventListener("submit", (event) => {
         x2 = k * Math.cos(theta + (2 * Math.PI) / 3) - b / (3 * a);
         x3 = k * Math.cos(theta + (4 * Math.PI / 3)) - b / (3 * a);
         realRoots = [x1, x2, x3];
+
+        (document.getElementById("x1") as HTMLElement).textContent = `${x1}`;
+        (document.getElementById("x2") as HTMLElement).textContent = `${x2}`;
+        (document.getElementById("x3") as HTMLElement).textContent = `${x3}`;
     } else if (discriminant > 0) {
         //single root and two complex roots
         x1 = Math.cbrt(-q / 2 + Math.sqrt(discriminant));
         x2 = Math.cbrt(-q / 2 - Math.sqrt(discriminant));
         x3 = x1 + x2 - b / (3 * a);
         realRoots = [x3];
+
+        (document.getElementById("x1") as HTMLElement).textContent = `Complex Number`;
+        (document.getElementById("x2") as HTMLElement).textContent = `Complex Number`;
+        (document.getElementById("x3") as HTMLElement).textContent = `${x3}`;
     } else {
         if (p == 0 && q == 0) {
             //triple root
@@ -114,14 +122,14 @@ form?.addEventListener("submit", (event) => {
             x3 = -2 * r1 - b / (3 * a);;
             realRoots = [x1, x2, x3];
         }
+        (document.getElementById("x1") as HTMLElement).textContent = `${x1}`;
+        (document.getElementById("x2") as HTMLElement).textContent = `${x2}`;
+        (document.getElementById("x3") as HTMLElement).textContent = `${x3}`;
     }
 
     (document.getElementById("equation") as HTMLElement).textContent = `${a}x³ + ${b}x² + ${c}x + ${d}`;
-    (document.getElementById("p") as HTMLElement).textContent = `${Math.round(p)}`;
-    (document.getElementById("discriminant") as HTMLElement).textContent = `${Math.round(discriminant)}`;
-    (document.getElementById("x1") as HTMLElement).textContent = `${Math.round(x1)}`;
-    (document.getElementById("x2") as HTMLElement).textContent = `${Math.round(x2)}`;
-    (document.getElementById("x3") as HTMLElement).textContent = `${Math.round(x3)}`;
-    
+    (document.getElementById("p") as HTMLElement).textContent = `${p}`;
+    (document.getElementById("discriminant") as HTMLElement).textContent = `${discriminant}`;
+
     updateGraph(a, b, c, d, realRoots);
 })
