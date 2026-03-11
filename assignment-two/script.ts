@@ -29,7 +29,7 @@ function drawGrid() {
     }
 }
 
-function drawFunction(a: number, b: number, c: number, d: number, roots: any[]) {
+function drawFunction(a: number, b: number, c: number, d: number, realRoots: any[]) {
     if (ctx) {
         ctx.translate(centerX, centerY);
         ctx.beginPath();
@@ -46,9 +46,9 @@ function drawFunction(a: number, b: number, c: number, d: number, roots: any[]) 
         ctx.beginPath();
         ctx.fillStyle = "#ffd24f";
 
-        for (let i = 0; i < roots.length; i++) {
-            ctx.moveTo(roots[i] * gridSize, 0);
-            ctx.arc(roots[i] * gridSize, 0, 3, 0, 2 * Math.PI);
+        for (let i = 0; i < realRoots.length; i++) {
+            ctx.moveTo(realRoots[i] * gridSize, 0);
+            ctx.arc(realRoots[i] * gridSize, 0, 3, 0, 2 * Math.PI);
             ctx.fill();
             ctx.stroke();
         }
@@ -83,7 +83,7 @@ form?.addEventListener("submit", (event) => {
     let x1: any;
     let x2: any;
     let x3: any;
-    let roots: number[];
+    let realRoots: number[];
 
     if (discriminant < 0) {
         //three disctinct roots
@@ -92,30 +92,36 @@ form?.addEventListener("submit", (event) => {
         x1 = k * Math.cos(theta) - b / (3 * a);
         x2 = k * Math.cos(theta + (2 * Math.PI) / 3) - b / (3 * a);
         x3 = k * Math.cos(theta + (4 * Math.PI / 3)) - b / (3 * a);
-        roots = [x1, x2, x3];
+        realRoots = [x1, x2, x3];
     } else if (discriminant > 0) {
+        //single root and two complex roots
         x1 = Math.cbrt(-q / 2 + Math.sqrt(discriminant));
         x2 = Math.cbrt(-q / 2 - Math.sqrt(discriminant));
         x3 = x1 + x2 - b / (3 * a);
-        roots = [x3];
+        realRoots = [x3];
     } else {
         if (p == 0 && q == 0) {
-            //p = 0 and q = 0 so the original equation from above collapses into the equation below
+            //triple root
             x1 = - b / (3 * a);
             x2 = x1;
             x3 = x1;
-            roots = [x1];
+            realRoots = [x1];
         } else {
-            x1 = Math.cbrt(q / 2) - b / (3 * a);
-            roots = [x1];
+            //double root
+            const r1 = Math.cbrt(q / 2);
+            x1 = r1 - b / (3 * a);
+            x2 = x1;
+            x3 = -2 * r1 - b / (3 * a);;
+            realRoots = [x1, x2, x3];
         }
     }
-    (document.getElementById("result") as HTMLInputElement).value = `x1=${x1}, x2=${x2}, x3=${x3}`;
-    //(document.getElementById("p") as HTMLInputElement).value = `${p}`;
-    // (document.getElementById("discriminant") as HTMLInputElement).value = `${discriminant}`;
-    // (document.getElementById("x1") as HTMLInputElement).value = `${x1}`;
-    // (document.getElementById("x2") as HTMLInputElement).value = `${x2}`;
-    // (document.getElementById("x3") as HTMLInputElement).value = `${x3}`;
 
-    updateGraph(a, b, c, d, roots);
+    (document.getElementById("equation") as HTMLElement).textContent = `${a}x³ + ${b}x² + ${c}x + ${d}`;
+    (document.getElementById("p") as HTMLElement).textContent = `${Math.round(p)}`;
+    (document.getElementById("discriminant") as HTMLElement).textContent = `${Math.round(discriminant)}`;
+    (document.getElementById("x1") as HTMLElement).textContent = `${Math.round(x1)}`;
+    (document.getElementById("x2") as HTMLElement).textContent = `${Math.round(x2)}`;
+    (document.getElementById("x3") as HTMLElement).textContent = `${Math.round(x3)}`;
+    
+    updateGraph(a, b, c, d, realRoots);
 })
