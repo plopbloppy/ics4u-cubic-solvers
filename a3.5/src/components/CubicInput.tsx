@@ -1,9 +1,10 @@
 import { useState, useRef } from "react";
 
-export const CubicSolver = () => {
+export const QuadraticSolver = () => {
   const [a, setA] = useState<number>(0);
   const [b, setB] = useState<number>(0);
   const [c, setC] = useState<number>(0);
+  const [d, setD] = useState<number>(0);
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   const handleSubmit = (event: React.FormEvent) => {
@@ -29,7 +30,7 @@ export const CubicSolver = () => {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#667eea] to-[#764ba2] p-4">
       <div className="bg-white p-10 rounded-2xl shadow-[0_15px_40px_rgba(0,0,0,0.15)] w-full max-w-md">
         <h1 className="text-center text-2xl font-bold text-gray-800 mb-7">
-          Quadratic Formula
+          Cubic Solver
         </h1>
         <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
           <label className="font-semibold text-gray-700 text-sm">
@@ -65,19 +66,18 @@ export const CubicSolver = () => {
             className="p-2.5 border border-gray-300 rounded-lg text-base focus:outline-none focus:border-[#667eea] focus:ring-2 focus:ring-[#667eea]/20"
           />
 
-          <label className="font-semibold text-gray-700 text-sm">Result:</label>
+          <label className="font-semibold text-gray-700 text-sm">
+            d value:
+          </label>
           <input
-            ref={inputRef}
-            type="text"
-            readOnly
-            className="p-2.5 rounded-lg bg-gray-100 font-semibold text-base"
+            type="number"
+            value={d}
+            onChange={(e) => setC(Number(e.target.value))}
+            required
+            className="p-2.5 border border-gray-300 rounded-lg text-base focus:outline-none focus:border-[#667eea] focus:ring-2 focus:ring-[#667eea]/20"
           />
 
-          <input
-            type="submit"
-            value="Calculate"
-            className="mt-2 p-3 rounded-xl bg-[#667eea] text-white font-semibold text-base cursor-pointer transition-all duration-200 hover:bg-[#5a67d8] active:translate-y-0 hover:-translate-y-1"
-          />
+          <button className="font-semibold text-gray-700 text-sm">Save</button>
         </form>
       </div>
     </div>
